@@ -1,6 +1,6 @@
 # Double-Slot Ultra-Wideband (UWB) Vivaldi Antenna for Biomedical Applications
 
-![Antenna Fabricated Prototype](link-to-your-double-slot-fabricated-image.png)
+![Antenna Fabricated Prototype](antenna_photo.jpg)
 
 ## Overview
 This repository contains the design, simulation files, and testing results for a **Double-Slot Ultra-Wideband (UWB) Vivaldi Antenna** optimized for medical imaging and sensing systems. The antenna is designed for early detection and monitoring of medical problems, such as cancerous tumors and non-contact health monitoring. 
@@ -61,17 +61,52 @@ $$
 ## Performance Metrics & Simulation Results
 The antenna was modeled and simulated using **CST Microwave Studio** (Time Domain Solver).
 
-* **Frequency Range:** $3$ GHz – $11$ GHz (Ultra-Wideband).
-* **Return Loss ($S_{11}$):** Maintained primarily below $-10$ dB across the operational band, with deep optimal resonances at $6–7$ GHz.
-* **Gain:** Achieves a high directional gain of approximately **$10–12$ dBi** due to the dual-slot radiating structure.
-* **Fabrication Validation:** The fabricated prototype closely matches the simulated $S_{11}$ response, validating the impedance matching network.
+### 1. Return Loss ($S_{11}$) & Impedance Matching
+Maintained primarily below $-10$ dB across the operational band ($3$ GHz – $11$ GHz), with deep optimal resonances at $6–7$ GHz. The fabricated prototype closely matches this simulated response.
+![S11 Return Loss Graph](s11-graph.png)
+
+### 2. Gain & Directivity
+The dual-slot radiating structure acts as a 2-element array, achieving a high directional gain of approximately **$10–12$ dBi** in the upper frequency bands.
+![Antenna Gain Plot](gain-plot.png)
 
 ## Biomedical Safety & SAR Analysis
 A critical component of this project is ensuring the antenna operates safely near human tissue. Tests were conducted using a multi-layer Human Head Phantom model (Skin, Fat, Skull, Dura, CSF, Gray/White Matter) in CST.
 
-* **Specific Absorption Rate (SAR):** The antenna's peak SAR value is **$0.0373$ W/kg** (at $7.536$ GHz), which is drastically below the international IEEE/ICNIRP safety limit of $1.6$ W/kg. 
+### Specific Absorption Rate (SAR)
+The antenna's peak SAR value is **$0.0373$ W/kg** (at $7.536$ GHz), which is drastically below the international IEEE/ICNIRP safety limit of $1.6$ W/kg for 1g of tissue. 
+![SAR Heatmap Analysis](sar-heatmap.png)
+
 * **Placement Distance Optimization:** Performance was analyzed at distances of $3$ mm, $5$ mm, $7$ mm, and $10$ mm from the tissue. A placement distance of **$7$ mm** was found to yield the highest antenna gain with minimal electromagnetic energy absorbed by the phantom.
-* **Tumor Power Loss Detection:** Power loss analysis demonstrated measurable differentiation when encountering biological tissue, scaling predictably as tumor radius increases (from $6$ mm to $10$ mm).
+* **Tumor Power Loss Detection:** Power loss analysis demonstrated measurable differentiation when encountering biological tissue, scaling predictably as tumor radius increases (from $6$ mm to $10$ mm).The power loss versus radius analysis provides important insight into how electromagnetic energy is absorbed by biological tissues as the size of the tumor region increases. It is observed that as the radius increases from 6 mm to 10 mm, the power loss steadily increases.Low power loss levels are seen at small radii due the radio frequency interaction between the antenna and tissue being limited. When the antenna radius is bigger than the average radius.
+  ![Powerloss vs radius](power_loss.png)
+### Dielectric Properties: Healthy Tissue vs. Cancerous Tumor
+The core principle behind using a UWB Vivaldi antenna for biomedical imaging is **dielectric contrast**. Biological tissues interact differently with electromagnetic waves based on their physiological composition, particularly their water and sodium content. 
+
+Cancerous tumors typically undergo angiogenesis (the formation of new blood vessels) to support rapid growth. This results in a significantly higher water and blood content compared to surrounding healthy tissues, drastically altering their electrical properties.
+
+| Property | Healthy Tissue (Baseline) | Cancerous Tumor (Malignant) | Impact on Microwave Signals |
+| :--- | :--- | :--- | :--- |
+| **Water Content** | Low to Moderate | High | Increased fluid absorbs more electromagnetic energy. |
+| **Relative Permittivity ($\epsilon_r$)** | Lower (e.g., Fat $\approx 5$) | Significantly Higher ($\approx 50+$) | Causes severe signal scattering, phase shifts, and stronger reflections at the tissue boundary. |
+| **Conductivity ($\sigma$)** | Lower | Higher | Increases the localized Specific Absorption Rate (SAR) and signal attenuation. |
+| **Electromagnetic Power Loss** | Minimal | High | Creates a measurable energy drop that the antenna system detects as an anomaly. |
+### Power Loss Analysis: Healthy Tissue vs. Cancerous Tumor
+Power loss analysis assesses the extent to which electromagnetic energy emitted from the antenna is absorbed into biological tissues. Both healthy and malignant tumors were simulated to determine how much power is absorbed into each type of tissue at multiple operational frequencies.
+
+The table below demonstrates the exact simulated power loss for the double-slot antenna, showing that cancerous tumors absorb consistently more power than healthy tissue:
+
+| Frequency (GHz) | Power Loss in Healthy Tissue (W) | Power Loss in Cancerous Tumor (W) |
+| :--- | :--- | :--- |
+| **4.132** | 0.00029306 | 0.00043855 |
+| **6.023** | 0.00049643 | 0.00054210 |
+| **6.720** | 0.00045839 | 0.00058728 |
+| **7.536** | 0.00051620 | 0.00055330 |
+| **8.840** | 0.00037287 | 0.00038287 |
+
+#### Mechanism of Detection
+When the double-slot Vivaldi antenna directs an ultra-wideband pulse into the human head phantom, the electromagnetic waves propagate through healthy, low-permittivity tissues (such as fat and bone) with minimal disruption. 
+
+However, when the traveling waves encounter a cancerous tumor, the sudden spike in permittivity and conductivity acts as an electromagnetic obstacle. The tumor absorbs a larger portion of the energy (measured as **Power Loss**) and scatters the remaining signal. By monitoring these power losses and return signal reflections ($S_{11}$), the system can successfully identify the presence, size, and approximate location of the malignancy without requiring invasive medical procedures.
 
 ## Repository Structure
 * `/Simulation_Files` - Contains the base `CST Microwave Studio` (.cst) project files and human phantom model configurations.
