@@ -1,1 +1,88 @@
-# UWB-Vivaldi-Antenna-for-Biomedical-Application
+# Double-Slot Ultra-Wideband (UWB) Vivaldi Antenna for Biomedical Applications
+
+![Antenna Fabricated Prototype](link-to-your-double-slot-fabricated-image.png)
+
+## Overview
+This repository contains the design, simulation files, and testing results for a **Double-Slot Ultra-Wideband (UWB) Vivaldi Antenna** optimized for medical imaging and sensing systems. The antenna is designed for early detection and monitoring of medical problems, such as cancerous tumors and non-contact health monitoring. 
+
+By utilizing two symmetrical tapered slots and a vertical feed splitter, this design achieves excellent directional radiation, high gain, and stable impedance matching across a wide frequency band, while strictly adhering to biomedical safety limits (SAR).
+
+## Key Features & Physical Specifications
+* **Substrate Material:** Rogers RO4003C ($\epsilon_r = 3.55$, Thickness = $0.813$ mm) for low dielectric loss at microwave frequencies.
+* **Double-Slot Configuration:** Two symmetrical tapered slots ensure balanced surface current distribution and enhanced directivity.
+* **Microstrip Feedline & Splitter:** A feedline (Length = $13$ mm, Width = $1.2$ mm) connected to a vertical splitter divides the signal equally into two branches for uniform excitation.
+* **Corrugated Edges:** 28 periodic corrugations ($1.7$ mm wide, spaced $2.1$ mm apart) are introduced along the antenna edges. These suppress surface waves and significantly improve radiation performance.
+* **Copper Layer:** $0.035$ mm thickness.
+
+## Antenna Geometry & Mathematical Modeling
+The tapered slots of the Vivaldi antenna structures are defined by an exponential flare to allow for a gradual increase in slot width. This ensures a smooth transition of the electromagnetic wave propagation from the guiding mode to the radiation mode.
+
+The generalized exponential taper profile is defined as:
+
+$$
+y(x) = C \cdot e^{ax}
+$$
+
+Where $C$ is the initial slot width constant, $a$ is the taper rate, and $x$ is the position along the length of the antenna. 
+
+For the specific parametric curve generation in CST Studio Suite, the primary outer flare curve is modeled using the following set of equations:
+
+$$
+X(t) = X_{offset} + t
+$$
+
+$$
+Y(t) = W_s + G \cdot \exp \left( \ln \left( \frac{W - W_s}{G} \right) \cdot \left( \frac{t}{L_{slot}} \right) \right)
+$$
+
+$$
+Z(t) = H_{sub}
+$$
+
+**Design Parameters:**
+* $X_{offset} = 20$ mm
+* $W_s$ (Inner ridge/finger width) = $30$ mm
+* $G$ (Throat gap) = $0.3$ mm
+* $W$ (Total mouth width) = $95$ mm
+
+### Impedance & Return Loss
+The characteristic impedance ($Z_0$) of the microstrip feedline used for matching is governed by:
+
+$$
+Z_0 = \frac{60}{\sqrt{\epsilon_{eff}}} \ln \left( \frac{8h}{w} + \frac{w}{4h} \right)
+$$
+
+The Return Loss ($S_{11}$), which represents the total reflected power from the antenna’s input terminal, is calculated as:
+
+$$
+S_{11} = 20 \log_{10}|\Gamma| \quad \text{where} \quad \Gamma = \frac{Z_L - Z_0}{Z_L + Z_0}
+$$
+
+## Performance Metrics & Simulation Results
+The antenna was modeled and simulated using **CST Microwave Studio** (Time Domain Solver).
+
+* **Frequency Range:** $3$ GHz – $11$ GHz (Ultra-Wideband).
+* **Return Loss ($S_{11}$):** Maintained primarily below $-10$ dB across the operational band, with deep optimal resonances at $6–7$ GHz.
+* **Gain:** Achieves a high directional gain of approximately **$10–12$ dBi** due to the dual-slot radiating structure.
+* **Fabrication Validation:** The fabricated prototype closely matches the simulated $S_{11}$ response, validating the impedance matching network.
+
+## Biomedical Safety & SAR Analysis
+A critical component of this project is ensuring the antenna operates safely near human tissue. Tests were conducted using a multi-layer Human Head Phantom model (Skin, Fat, Skull, Dura, CSF, Gray/White Matter) in CST.
+
+* **Specific Absorption Rate (SAR):** The antenna's peak SAR value is **$0.0373$ W/kg** (at $7.536$ GHz), which is drastically below the international IEEE/ICNIRP safety limit of $1.6$ W/kg. 
+* **Placement Distance Optimization:** Performance was analyzed at distances of $3$ mm, $5$ mm, $7$ mm, and $10$ mm from the tissue. A placement distance of **$7$ mm** was found to yield the highest antenna gain with minimal electromagnetic energy absorbed by the phantom.
+* **Tumor Power Loss Detection:** Power loss analysis demonstrated measurable differentiation when encountering biological tissue, scaling predictably as tumor radius increases (from $6$ mm to $10$ mm).
+
+## Repository Structure
+* `/Simulation_Files` - Contains the base `CST Microwave Studio` (.cst) project files and human phantom model configurations.
+* `/Results_and_Graphs` - Exported data for Return Loss ($S_{11}$), Gain, SAR heatmaps, and Power Loss vs. Radius graphs.
+* `/Documentation` - Detailed design methodology, exponential flare equations, and project reports.
+* `/Fabrication` - Images and VNA measurement data of the physical antenna prototype.
+
+## Technologies Used
+* **Simulation:** CST Studio Suite (3D Electromagnetic Solver)
+* **Fabrication:** Printed Circuit Board (PCB) etching on Rogers RO4003C
+* **Testing:** Vector Network Analyzer (VNA)
+
+## Acknowledgements
+Developed at the Department of Electronics and Communication Engineering, SRM Institute of Science and Technology (SRMIST), Kattankulathur. This project directly contributes to the UN's Sustainable Development Goals (SDG 3: Good Health and Well-Being & SDG 9: Industry, Innovation, and Infrastructure).
