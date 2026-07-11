@@ -1,6 +1,6 @@
 # Double-Slot Ultra-Wideband (UWB) Vivaldi Antenna for Biomedical Applications
 
-![Antenna Fabricated Prototype](antenna_photo.jpg)
+![Antenna Fabricated Prototype](fabricated antenna (radiating side).jpg)
 
 ## Overview
 This repository contains the design, simulation files, and testing results for a **Double-Slot Ultra-Wideband (UWB) Vivaldi Antenna** optimized for medical imaging and sensing systems. The antenna is designed for early detection and monitoring of medical problems, such as cancerous tumors and non-contact health monitoring. 
