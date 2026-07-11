@@ -63,22 +63,22 @@ The antenna was modeled and simulated using **CST Microwave Studio** (Time Domai
 
 ### 1. Return Loss ($S_{11}$) & Impedance Matching
 Maintained primarily below $-10$ dB across the operational band ($3$ GHz – $11$ GHz), with deep optimal resonances at $6–7$ GHz. The fabricated prototype closely matches this simulated response.
-![S11 Return Loss Graph](s11-graph.png)
+
 
 ### 2. Gain & Directivity
 The dual-slot radiating structure acts as a 2-element array, achieving a high directional gain of approximately **$10–12$ dBi** in the upper frequency bands.
-![Antenna Gain Plot](gain-plot.png)
+
 
 ## Biomedical Safety & SAR Analysis
 A critical component of this project is ensuring the antenna operates safely near human tissue. Tests were conducted using a multi-layer Human Head Phantom model (Skin, Fat, Skull, Dura, CSF, Gray/White Matter) in CST.
 
 ### Specific Absorption Rate (SAR)
 The antenna's peak SAR value is **$0.0373$ W/kg** (at $7.536$ GHz), which is drastically below the international IEEE/ICNIRP safety limit of $1.6$ W/kg for 1g of tissue. 
-![SAR Heatmap Analysis](sar-heatmap.png)
+
 
 * **Placement Distance Optimization:** Performance was analyzed at distances of $3$ mm, $5$ mm, $7$ mm, and $10$ mm from the tissue. A placement distance of **$7$ mm** was found to yield the highest antenna gain with minimal electromagnetic energy absorbed by the phantom.
 * **Tumor Power Loss Detection:** Power loss analysis demonstrated measurable differentiation when encountering biological tissue, scaling predictably as tumor radius increases (from $6$ mm to $10$ mm).The power loss versus radius analysis provides important insight into how electromagnetic energy is absorbed by biological tissues as the size of the tumor region increases. It is observed that as the radius increases from 6 mm to 10 mm, the power loss steadily increases.Low power loss levels are seen at small radii due the radio frequency interaction between the antenna and tissue being limited. When the antenna radius is bigger than the average radius.
-  ![Powerloss vs radius](power_loss.png)
+  
 ### Dielectric Properties: Healthy Tissue vs. Cancerous Tumor
 The core principle behind using a UWB Vivaldi antenna for biomedical imaging is **dielectric contrast**. Biological tissues interact differently with electromagnetic waves based on their physiological composition, particularly their water and sodium content. 
 
